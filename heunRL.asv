@@ -1,0 +1,5 @@
+function Vout = heunRL(Vin, R, L, h, i0, tf)
+
+    
+
+end
