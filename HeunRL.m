@@ -1,16 +1,33 @@
-function y_new = HeunRL(Vin, R, L, y0, h, tf)
-   t = 0 : h :tf;
-   y(1) = y0;
-   yp(1) = 0;
-   for i = 1:length(t)-1
-        yp(i+1) = y(i) + h * feval(Vin, t(i), y(i));
-        y(i+1) = y(i) + h * (feval(Vin, t(i), y(i)) + feval(Vin, t(i+1), yp(i+1))) / 2 ;
+function huenRL(Vin , R , L ,h, io, tf)
 
-   end
-    plot (t,y);
-    xlabel('time')
-    ylabel('y')
-    disp(y(end))
-    y_new = y;
-    
+N = round(tf/h);
+
+for j = 1:N+1
+    t(j) = h*(j-1);
 end
+
+y(1) = io;
+
+for j =1:N
+    igrad = (1/L)*(Vin(j*h) - R*y(j)); %i'
+    ip = y(j) + h*(igrad); %predictor
+    ingrad = (1/L)*(Vin((j+1)*h) - R*ip); % i'+1
+    iave = 0.5*(igrad + ingrad); %average
+    vout(j+1) = Vin(j*h) - R*y(j); %output voltage
+    y(j+1) = y(j) + h*iave; %corrector
+end
+
+
+plot(t, vout, '-');
+grid;
+xlabel('Time(s)');
+ylabel('Voltage (V)');
+
+
+
+
+
+
+
+
+
