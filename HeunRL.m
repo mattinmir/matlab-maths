@@ -1,4 +1,4 @@
-function huenRL(Vin , R , L ,h, io, tf)
+function HeunRL(Vin , R , L ,h, i0, tf)
 
 N = round(tf/h);
 
@@ -6,7 +6,7 @@ for j = 1:N+1
     t(j) = h*(j-1);
 end
 
-y(1) = io;
+y(1) = i0;
 
 for j =1:N
     igrad = (1/L)*(Vin(j*h) - R*y(j)); %i'
