@@ -1,3 +1,3 @@
 # matlab-maths
 
-viktor is sexy
+viktor is a sexy beast
